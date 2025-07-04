@@ -6,12 +6,30 @@ export type ExpenseCategory =
   | 'shopping'
   | 'utilities'
   | 'health'
+  | 'rent'
+  | 'education'
+  | 'other';
+
+export type IncomeSource = 
+  | 'salary'
+  | 'freelance'
+  | 'pocket-money'
+  | 'bonus'
+  | 'investment'
   | 'other';
 
 export interface Expense {
   id: string;
   amount: number;
   category: ExpenseCategory;
+  description: string;
+  date: Date;
+}
+
+export interface Income {
+  id: string;
+  amount: number;
+  source: IncomeSource;
   description: string;
   date: Date;
 }
@@ -23,6 +41,8 @@ export const categoryColors: Record<ExpenseCategory, string> = {
   shopping: '#4BC0C0',
   utilities: '#9966FF',
   health: '#FF9F40',
+  rent: '#FF8C42',
+  education: '#4ECDC4',
   other: '#C9CBCF',
 };
 
@@ -33,5 +53,25 @@ export const categoryIcons: Record<ExpenseCategory, string> = {
   shopping: '🛍️',
   utilities: '💡',
   health: '🏥',
+  rent: '🏠',
+  education: '📚',
   other: '📝',
+};
+
+export const incomeSourceColors: Record<IncomeSource, string> = {
+  salary: '#28A745',
+  freelance: '#17A2B8',
+  'pocket-money': '#FFC107',
+  bonus: '#DC3545',
+  investment: '#6F42C1',
+  other: '#6C757D',
+};
+
+export const incomeSourceIcons: Record<IncomeSource, string> = {
+  salary: '💼',
+  freelance: '💻',
+  'pocket-money': '👨‍👩‍👧‍👦',
+  bonus: '🎁',
+  investment: '📈',
+  other: '💰',
 };

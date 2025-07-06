@@ -1,3 +1,5 @@
+// src/components/ExpenseForm.tsx
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -29,35 +31,22 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onCancel }) => {
       date: new Date(date),
     });
 
-    // Reset form
     setAmount('');
     setCategory('other');
     setDescription('');
     setDate(new Date().toISOString().split('T')[0]);
   };
 
-  const formatCategory = (cat: string) =>
-    cat.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-4" aria-label="Expense Entry Form">
+    <form onSubmit={handleSubmit} className="space-y-4">
       <div>
         <Label htmlFor="amount">Amount (₹)</Label>
-        <Input
-          id="amount"
-          type="number"
-          step="0.01"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          placeholder="How much did you spend?"
-          required
-        />
+        <Input id="amount" type="number" step="0.01" value={amount} onChange={(e) => setAmount(e.target.value)} required />
       </div>
-
       <div>
         <Label htmlFor="category">Category</Label>
         <Select value={category} onValueChange={(value: ExpenseCategory) => setCategory(value)}>
-          <SelectTrigger id="category" aria-label="Select expense category">
+          <SelectTrigger id="category">
             <SelectValue placeholder="Choose category" />
           </SelectTrigger>
           <SelectContent>
@@ -65,44 +54,27 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onCancel }) => {
               <SelectItem key={key} value={key}>
                 <span className="flex items-center gap-2">
                   <span>{icon}</span>
-                  <span className="capitalize">{formatCategory(key)}</span>
+                  <span className="capitalize">{key}</span>
                 </span>
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </div>
-
       <div>
         <Label htmlFor="description">Description</Label>
-        <Textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          placeholder="e.g. Dinner, movie, shopping..."
-          required
-        />
+        <Textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} required />
       </div>
-
       <div>
         <Label htmlFor="date">Date</Label>
-        <Input
-          id="date"
-          type="date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
+        <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
       </div>
-
       <div className="flex gap-2">
         <Button type="submit" className="flex-1 bg-red-600 hover:bg-red-700">
-          <Check className="h-4 w-4 mr-2" />
-          Add Expense
+          <Check className="h-4 w-4 mr-2" /> Add Expense
         </Button>
         <Button type="button" variant="outline" onClick={onCancel}>
-          <X className="h-4 w-4 mr-2" />
-          Cancel
+          <X className="h-4 w-4 mr-2" /> Cancel
         </Button>
       </div>
     </form>

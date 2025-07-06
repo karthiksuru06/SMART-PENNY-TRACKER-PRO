@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { motion } from 'framer-motion';
 import ParticlesBackground from "@/components/ui/ParticlesBackground";
+import { useToast } from "@/hooks/use-toast";
 
 interface Transaction {
   id: number;
@@ -26,6 +27,8 @@ const getCategoryIcon = (category: string): string => {
 };
 
 export default function IndexPage() {
+  const { toast } = useToast();
+
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [budget, setBudget] = useState<number>(0);
   const [form, setForm] = useState<Omit<Transaction, 'id'>>({
@@ -50,10 +53,21 @@ export default function IndexPage() {
   const balance = budget + calculateTotal('income') - calculateTotal('expense');
 
   const addTransaction = () => {
-    if (!form.amount || !form.category || !form.date) return;
+    if (!form.amount || !form.category || !form.date) {
+      toast({
+        variant: "destructive",
+        title: "Missing Fields",
+        description: "Please fill all required fields to add a transaction.",
+      });
+      return;
+    }
 
     if (form.type === 'expense' && form.amount > balance) {
-      alert('❌ Not enough balance to add this expense.');
+      toast({
+        variant: "destructive",
+        title: "Insufficient Balance",
+        description: "You don't have enough balance for this expense.",
+      });
       return;
     }
 
@@ -65,6 +79,11 @@ export default function IndexPage() {
 
     setTransactions((prev) => [...prev, newTransaction]);
     setForm({ type: 'expense', amount: 0, category: '', note: '', date: '' });
+
+    toast({
+      title: "✅ Transaction Added",
+      description: `${form.category} of ₹${form.amount.toLocaleString('en-IN')} recorded.`,
+    });
   };
 
   return (

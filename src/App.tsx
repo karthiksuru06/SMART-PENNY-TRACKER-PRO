@@ -11,7 +11,6 @@ const queryClient = new QueryClient();
 
 const App = () => {
   useEffect(() => {
-    // Optional: load saved theme from localStorage
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
       document.documentElement.classList.add("dark");
@@ -24,12 +23,11 @@ const App = () => {
         {/* Global Notifications */}
         <Toaster />
         <Sonner />
-        
-        {/* Main Application Routing */}
+
+        {/* Routing */}
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            {/* Add new pages/routes above this line */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

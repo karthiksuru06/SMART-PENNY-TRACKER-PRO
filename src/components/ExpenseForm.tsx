@@ -20,10 +20,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onCancel }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!amount || !description) {
-      return;
-    }
+    if (!amount || !description) return;
 
     onSubmit({
       amount: parseFloat(amount),
@@ -39,8 +36,11 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onCancel }) => {
     setDate(new Date().toISOString().split('T')[0]);
   };
 
+  const formatCategory = (cat: string) =>
+    cat.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4" aria-label="Expense Entry Form">
       <div>
         <Label htmlFor="amount">Amount (₹)</Label>
         <Input
@@ -49,7 +49,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onCancel }) => {
           step="0.01"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder="0.00"
+          placeholder="How much did you spend?"
           required
         />
       </div>
@@ -57,15 +57,15 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onCancel }) => {
       <div>
         <Label htmlFor="category">Category</Label>
         <Select value={category} onValueChange={(value: ExpenseCategory) => setCategory(value)}>
-          <SelectTrigger>
-            <SelectValue />
+          <SelectTrigger id="category" aria-label="Select expense category">
+            <SelectValue placeholder="Choose category" />
           </SelectTrigger>
           <SelectContent>
             {Object.entries(categoryIcons).map(([key, icon]) => (
               <SelectItem key={key} value={key}>
                 <span className="flex items-center gap-2">
                   <span>{icon}</span>
-                  <span className="capitalize">{key}</span>
+                  <span className="capitalize">{formatCategory(key)}</span>
                 </span>
               </SelectItem>
             ))}
@@ -79,7 +79,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onCancel }) => {
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="What did you spend on?"
+          placeholder="e.g. Dinner, movie, shopping..."
           required
         />
       </div>
@@ -96,7 +96,7 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, onCancel }) => {
       </div>
 
       <div className="flex gap-2">
-        <Button type="submit" className="flex-1">
+        <Button type="submit" className="flex-1 bg-red-600 hover:bg-red-700">
           <Check className="h-4 w-4 mr-2" />
           Add Expense
         </Button>

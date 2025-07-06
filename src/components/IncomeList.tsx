@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,12 +10,18 @@ interface IncomeListProps {
 }
 
 const IncomeList: React.FC<IncomeListProps> = ({ incomes, onDelete }) => {
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-IN', {
+  const formatDate = React.useCallback((date: Date) => {
+    return new Intl.DateTimeFormat('en-IN', {
       month: 'short',
       day: 'numeric',
       year: 'numeric',
-    });
+    }).format(date);
+  }, []);
+
+  const formatSourceLabel = (source: string) => {
+    return source === 'pocket-money'
+      ? 'Pocket Money'
+      : source.replace(/-/g, ' ').replace(/^\w/, (c) => c.toUpperCase());
   };
 
   return (
@@ -24,6 +29,7 @@ const IncomeList: React.FC<IncomeListProps> = ({ incomes, onDelete }) => {
       <CardHeader>
         <CardTitle className="text-green-700">Recent Income 💰</CardTitle>
       </CardHeader>
+
       <CardContent>
         {incomes.length === 0 ? (
           <div className="text-center py-8">
@@ -37,11 +43,11 @@ const IncomeList: React.FC<IncomeListProps> = ({ incomes, onDelete }) => {
             {incomes.map((income) => (
               <div
                 key={income.id}
-                className="flex items-center justify-between p-4 border rounded-lg hover:bg-green-50 transition-colors border-green-200"
+                className="flex items-center justify-between p-4 border rounded-lg hover:bg-green-50 transition-all border-green-200"
               >
                 <div className="flex items-center gap-3">
-                  <div 
-                    className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-medium"
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-medium shadow-sm"
                     style={{ backgroundColor: incomeSourceColors[income.source] }}
                   >
                     {incomeSourceIcons[income.source]}
@@ -49,11 +55,11 @@ const IncomeList: React.FC<IncomeListProps> = ({ incomes, onDelete }) => {
                   <div>
                     <p className="font-medium text-gray-900">{income.description}</p>
                     <p className="text-sm text-gray-500">
-                      {income.source === 'pocket-money' ? 'Pocket Money' : 
-                       income.source.charAt(0).toUpperCase() + income.source.slice(1)} • {formatDate(income.date)}
+                      {formatSourceLabel(income.source)} • {formatDate(income.date)}
                     </p>
                   </div>
                 </div>
+
                 <div className="flex items-center gap-3">
                   <span className="font-bold text-lg text-green-700">
                     +₹{income.amount.toFixed(2)}
@@ -62,7 +68,8 @@ const IncomeList: React.FC<IncomeListProps> = ({ incomes, onDelete }) => {
                     variant="ghost"
                     size="sm"
                     onClick={() => onDelete(income.id)}
-                    className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                    className="text-red-500 hover:text-red-700 hover:bg-red-100"
+                    aria-label={`Delete income: ${income.description}`}
                   >
                     <Trash2 className="h-4 w-4" />
                   </Button>

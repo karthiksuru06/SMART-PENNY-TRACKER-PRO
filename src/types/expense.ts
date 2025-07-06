@@ -1,5 +1,6 @@
+// Types for Expense and Income Management
 
-export type ExpenseCategory = 
+export type ExpenseCategory =
   | 'food'
   | 'transport'
   | 'entertainment'
@@ -10,7 +11,7 @@ export type ExpenseCategory =
   | 'education'
   | 'other';
 
-export type IncomeSource = 
+export type IncomeSource =
   | 'salary'
   | 'freelance'
   | 'pocket-money'
@@ -34,6 +35,7 @@ export interface Income {
   date: Date;
 }
 
+// Visual styles for UI: category → color
 export const categoryColors: Record<ExpenseCategory, string> = {
   food: '#FF6384',
   transport: '#36A2EB',
@@ -46,6 +48,7 @@ export const categoryColors: Record<ExpenseCategory, string> = {
   other: '#C9CBCF',
 };
 
+// Emoji icons for each expense category
 export const categoryIcons: Record<ExpenseCategory, string> = {
   food: '🍽️',
   transport: '🚗',
@@ -58,6 +61,7 @@ export const categoryIcons: Record<ExpenseCategory, string> = {
   other: '📝',
 };
 
+// Visual styles for income sources
 export const incomeSourceColors: Record<IncomeSource, string> = {
   salary: '#28A745',
   freelance: '#17A2B8',
@@ -67,6 +71,7 @@ export const incomeSourceColors: Record<IncomeSource, string> = {
   other: '#6C757D',
 };
 
+// Emoji icons for each income source
 export const incomeSourceIcons: Record<IncomeSource, string> = {
   salary: '💼',
   freelance: '💻',

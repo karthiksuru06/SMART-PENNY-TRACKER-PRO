@@ -5,12 +5,14 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import tseslint from "typescript-eslint";
 
 export default tseslint.config(
-  { ignores: ["dist"] },
   {
-    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    ignores: ["dist", "node_modules"],
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      ecmaVersion: 2020,
+      ecmaVersion: "latest",
+      sourceType: "module",
       globals: globals.browser,
     },
     plugins: {
@@ -25,5 +27,11 @@ export default tseslint.config(
       ],
       "@typescript-eslint/no-unused-vars": "off",
     },
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommended,
+    ],
   }
 );
+// This ESLint configuration is set up for a TypeScript project using React.
+// It includes the recommended rules from ESLint, TypeScript, and React plugins.

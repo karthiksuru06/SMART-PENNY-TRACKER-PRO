@@ -1,73 +1,85 @@
-# Welcome to your Lovable project
+# 💸 Smart Penny Tracker
 
-## Project info
+A personal **Money Management & Budget Tracking** web app built using **React**, **Vite**, **Tailwind CSS**, and **TypeScript** — designed for Indian users to manage monthly pocket money, bonuses, and expenses seamlessly.
 
-**URL**: https://lovable.dev/projects/b2d2d0a1-557d-4c09-9e00-ba12e1f6b693
+---
 
-## How can I edit this code?
+## 🚀 Features
 
-There are several ways of editing your application.
+- 📊 **Expense Tracker**: Track daily/monthly spending by categories like Food, Travel, Shopping, etc.
+- 💰 **Income Logging**: Add your pocket money, bonuses, or any income.
+- 📅 **Budget Planning**: Set monthly budgets and view remaining balance.
+- 🌗 **Dark Mode Toggle**: Easily switch between light and dark themes.
+- 📈 **Insights Dashboard** *(Coming Soon)*: Visualize savings vs. spending.
+- 🔄 **Real-time UI** with smooth animations using `tailwindcss-animate`.
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/b2d2d0a1-557d-4c09-9e00-ba12e1f6b693) and start prompting.
+## 🛠 Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+- ⚛️ React + Vite
+- 🎨 Tailwind CSS (with custom theming)
+- 🧠 TypeScript
+- 💡 Shadcn/UI Components
+- ☁️ LocalStorage (for now, Firebase/Express optional later)
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📷 Screenshots
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+![Smart Penny Tracker UI](./screenshot.png)
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## 📦 Installation
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+```bash
+# Clone the repo
+git clone https://github.com/your-username/smart-penny-tracker.git
+cd smart-penny-tracker
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Install dependencies
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
-```
+🧠 Usage Ideas
+"Imagine your parents just gave you ₹2000 as pocket money or you earned a ₹500 bonus from a college project. Add it as income in the app and track how it flows!"
 
-**Edit a file directly in GitHub**
+🔧 Project Structure
+csharp
+Copy
+Edit
+smart-penny-tracker/
+├── public/              # Static assets
+├── src/
+│   ├── components/      # UI Components
+│   ├── pages/           # Pages (Dashboard, Settings, etc.)
+│   ├── App.tsx          # Main app file
+│   └── main.tsx         # Entry point
+├── index.html
+├── tailwind.config.ts
+└── package.json
+✅ To-Do / Coming Soon
+🔐 Login & Signup with Google
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+📊 Graphs & Visual Analytics
 
-**Use GitHub Codespaces**
+🔔 Expense reminders & daily tips
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+📱 PWA Support for mobile users
 
-## What technologies are used for this project?
+🙌 Contributing
+Pull requests are welcome. Feel free to submit issues or suggest features.
 
-This project is built with:
+📄 License
+This project is open source under the MIT License.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+👨‍💻 Developer
+Karthik Suru
 
-## How can I deploy this project?
+yaml
+Copy
+Edit
 
-Simply open [Lovable](https://lovable.dev/projects/b2d2d0a1-557d-4c09-9e00-ba12e1f6b693) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+---

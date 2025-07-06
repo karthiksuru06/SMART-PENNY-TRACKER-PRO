@@ -1,9 +1,14 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { X, Check } from 'lucide-react';
 import { Income, IncomeSource, incomeSourceIcons } from '@/types/expense';
@@ -21,10 +26,8 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onSubmit, onCancel }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!amount || !description) {
-      return;
-    }
+
+    if (!amount || !description) return;
 
     onSubmit({
       amount: parseFloat(amount),
@@ -33,7 +36,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onSubmit, onCancel }) => {
       date: new Date(date),
     });
 
-    // Reset form
+    // Reset
     setAmount('');
     setSource('other');
     setDescription('');
@@ -41,16 +44,17 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onSubmit, onCancel }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4" aria-label="Income Entry Form">
       <div>
         <Label htmlFor="amount">Amount (₹)</Label>
         <Input
           id="amount"
           type="number"
+          min="0"
           step="0.01"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          placeholder="0.00"
+          placeholder="Enter amount"
           required
         />
       </div>
@@ -58,8 +62,8 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onSubmit, onCancel }) => {
       <div>
         <Label htmlFor="source">Income Source</Label>
         <Select value={source} onValueChange={(value: IncomeSource) => setSource(value)}>
-          <SelectTrigger>
-            <SelectValue />
+          <SelectTrigger id="source" aria-label="Select income source">
+            <SelectValue placeholder="Select source" />
           </SelectTrigger>
           <SelectContent>
             {Object.entries(incomeSourceIcons).map(([key, icon]) => (
@@ -67,7 +71,9 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onSubmit, onCancel }) => {
                 <span className="flex items-center gap-2">
                   <span>{icon}</span>
                   <span className="capitalize">
-                    {key === 'pocket-money' ? 'Pocket Money' : key}
+                    {key === 'pocket-money'
+                      ? 'Pocket Money'
+                      : key.replace(/-/g, ' ')}
                   </span>
                 </span>
               </SelectItem>
@@ -82,7 +88,7 @@ const IncomeForm: React.FC<IncomeFormProps> = ({ onSubmit, onCancel }) => {
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="Source of income..."
+          placeholder="e.g. Bonus from internship, pocket money..."
           required
         />
       </div>
